@@ -13,10 +13,10 @@ if [ "x${CCACHE_BUILD}" != "x" ]; then
 fi
 
 # Pointers to install, build and source directories
-INSTALLPREFIX=${PWD}/install
-BUILDPREFIX=${PWD}/build
-LLVMSRC=${PWD}/llvm-project
-NEWLIBSRC=${PWD}/newlib
+INSTALLPREFIX=${INSTALLPREFIX:-${PWD}/install}
+BUILDPREFIX=${BUILDPREFIX:-${PWD}/build}
+LLVMSRC=${LLVMSRC:-${PWD}/llvm-project}
+NEWLIBSRC=${NEWLIBSRC:-${PWD}/newlib}
 
 # If a BUGURL and PKGVERS has been provided, set variables
 NEWLIB_EXTRA_OPTS=""
@@ -138,7 +138,7 @@ cmake -G"Unix Makefiles"                                                     \
     -DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON                                     \
     -DCOMPILER_RT_OS_DIR="riscv32-unknown-unknown-elf"                       \
     -DLLVM_CONFIG_PATH=${BUILDPREFIX}/llvm/bin/llvm-config                   \
-    ../../llvm-project/compiler-rt
+    ${LLVMSRC}/compiler-rt
 make -j${PARALLEL_JOBS}
 make install
 
