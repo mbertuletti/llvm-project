@@ -615,6 +615,12 @@ def VFSQRT_H : RVInstRVf<0b10, 0b00111, 0b0, VFMT_FP16, RISCVOpcode<"VFSQRT_H", 
              (outs FPR16:$rd), (ins FPR16:$rs1), "vfsqrt.h", "$rd, $rs1">, Sched<[]> {
     let rs2 = 0b00000;
   }
+// vfexp.h: exponential of each half-precision lane (not in the Snitch FPU spec)
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, DecoderNamespace = "" in
+def VFEXP_H : RVInstRVf<0b10, 0b00111, 0b0, VFMT_FP16, RISCVOpcode<"VFEXP_H", 0b0110011>,
+             (outs FPR16:$rd), (ins FPR16:$rs1), "vfexp.h", "$rd, $rs1">, Sched<[]> {
+    let rs2 = 0b00001;
+  }
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0, DecoderNamespace = "" in
 def VFMAC_H : RVInstRVf<0b10, 0b01000, 0b0, VFMT_FP16, RISCVOpcode<"VFMAC_H", 0b0110011>,
              (outs FPR16:$rd), (ins FPR16:$rs1, FPR16:$rs2), "vfmac.h", "$rd, $rs1, $rs2">, Sched<[]>;
@@ -806,6 +812,11 @@ let hasSideEffects = 0, mayLoad = 0, mayStore = 0, DecoderNamespace = "RVZfinx" 
 def VFSQRT_H_INX : RVInstRVf<0b10, 0b00111, 0b0, VFMT_FP16INX, RISCVOpcode<"VFSQRT_H_INX", 0b0110011>,
              (outs FPR16INX:$rd), (ins FPR16INX:$rs1), "vfsqrt.h", "$rd, $rs1">, Sched<[]> {
     let rs2 = 0b00000;
+  }
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, DecoderNamespace = "RVZfinx" in
+def VFEXP_H_INX : RVInstRVf<0b10, 0b00111, 0b0, VFMT_FP16INX, RISCVOpcode<"VFEXP_H_INX", 0b0110011>,
+             (outs FPR16INX:$rd), (ins FPR16INX:$rs1), "vfexp.h", "$rd, $rs1">, Sched<[]> {
+    let rs2 = 0b00001;
   }
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0, DecoderNamespace = "RVZfinx" in
 def VFMAC_H_INX : RVInstRVf<0b10, 0b01000, 0b0, VFMT_FP16INX, RISCVOpcode<"VFMAC_H_INX", 0b0110011>,
